@@ -1,3 +1,33 @@
+var isKey = function(item) {
+	var img = item.getElementsByTagName('img')[0];
+	return (img.src.match(/\/15003\.jpg$/) != null);
+};
+
+var countGain = function(row) {
+	var keys = 0;
+	var rares = 0;
+	var uncommons = 0;
+	var commons = 0;
+
+	var commonItems = row.getElementsByClassName('Common');
+	var i;
+	for (i = 0; i < commonItems.length; ++i) {
+		if (isKey(commonItems[i].parentNode)) {
+			++keys;
+		} else {
+			++commons;
+		}
+	}
+	rares = row.getElementsByClassName('Rare').length;
+	uncommons = row.getElementsByClassName('Uncommon').length;
+	return {
+		keys: keys,
+		rares: rares,
+		uncommons: uncommons,
+		commons: commons
+	};
+};
+
 var ajaxCont = document.getElementById('ajaxCont');
 if (ajaxCont != null) {
 	ajaxCont.addEventListener('DOMSubtreeModified', function(ev) {
@@ -6,6 +36,7 @@ if (ajaxCont != null) {
 		var isBetHistory = (losses > 0) || (wins > 0);
 
 		if (isBetHistory && !document.getElementById('betStats')) {
+			var keysGain = 0;
 			var raresGain = 0;
 			var uncommonsGain = 0;
 			var commonsGain = 0;
@@ -36,16 +67,20 @@ if (ajaxCont != null) {
 				}
 
 				if (won) {
-					raresGain += betRows[n + 2].getElementsByClassName('Rare').length;
-					uncommonsGain += betRows[n + 2].getElementsByClassName('Uncommon').length;
-					commonsGain += betRows[n + 2].getElementsByClassName('Common').length;
+					var gain = countGain(betRows[n + 2]);
+					keysGain += gain.keys;
+					raresGain += gain.rares;
+					uncommonsGain += gain.uncommons;
+					commonsGain += gain.commons;
 					++teamMap[teamA].wins;
 					++teamMap[teamB].wins;
 					++totalWins;
 				} else if (lost) {
-					raresGain -= betRows[n + 1].getElementsByClassName('Rare').length;
-					uncommonsGain -= betRows[n + 1].getElementsByClassName('Uncommon').length;
-					commonsGain -= betRows[n + 1].getElementsByClassName('Common').length;
+					var loss = countGain(betRows[n + 1]);
+					keysGain -= loss.keys;
+					raresGain -= loss.rares;
+					uncommonsGain -= loss.uncommons;
+					commonsGain -= loss.commons;
 				}
 			}
 			var betStats = document.createElement('div');
@@ -67,7 +102,7 @@ if (ajaxCont != null) {
 
 			var betProfit = document.createElement('div');
 			betProfit.id = 'betProfit';
-			betProfit.textContent = 'Profit from betting: ' + raresGain + ' rares, ' + uncommonsGain + ' uncommons, ' + commonsGain + ' commons';
+			betProfit.textContent = 'Profit from betting: ' + keysGain + ' keys, ' + raresGain + ' rares, ' + uncommonsGain + ' uncommons, ' + commonsGain + ' commons';
 			betStats.appendChild(betProfit);
 
 			var overallRate = document.createElement('div');
