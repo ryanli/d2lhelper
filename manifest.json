@@ -10,10 +10,15 @@
             "matches": ["http://*.dota2lounge.com/myprofile"],
             "js": ["bet-stats.js"],
             "css": ["bet-stats.css"]
+        },
+        {
+            "matches": ["http://*.dota2lounge.com/*"],
+            "js": ["jquery-2.1.1.js", "item-value.js"]
         }
     ],
 
     "permissions": [
-        "http://*.dota2lounge.com/*"
+        "http://*.dota2lounge.com/*",
+        "http://steamcommunity.com/market/*"
     ]
 }
