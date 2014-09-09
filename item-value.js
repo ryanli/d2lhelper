@@ -1,5 +1,3 @@
-var items = document.getElementsByClassName("item");
-
 $('.item:not(:has(.value))').each(function(i) {
   // don't use the .smallimg's alt attr since it doesn't have quality prefix
   var itemName = $($($(this).children('.name')[0]).children('b')[0]).text().trim();
