@@ -8,7 +8,7 @@
     "content_scripts": [
         {
             "matches": ["http://*.dota2lounge.com/myprofile"],
-            "js": ["bet-stats.js"],
+            "js": ["async.js", "jquery-2.1.1.js", "bet-stats.js"],
             "css": ["bet-stats.css"]
         },
         {
