@@ -5,3 +5,7 @@
 #betStats h3 {
 	cursor: pointer;
 }
+
+.tablesorter tr th {
+  cursor: pointer;
+}
