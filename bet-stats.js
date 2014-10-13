@@ -55,7 +55,7 @@ $('#ajaxCont').on('DOMSubtreeModified', function(ev) {
 
     var count = 0;
 	  async.eachLimit($('#ajaxCont .item'), MAX_CONCURRENT_REQUESTS, function(item, callback) {
-	    var itemName = $($($(item).children('.name')[0]).children('b')[0]).text().trim();
+	    var itemName = $($($($(item).parent()).children('.name')[0]).children('b')[0]).text().trim();
 	    getItemValue(itemName, function(err, value) {
 	      $('#betStats progress').attr('value', ++count);
 	      if (count == $('#betStats progress').attr('max')) {
@@ -99,6 +99,7 @@ $('#ajaxCont').on('DOMSubtreeModified', function(ev) {
             .replace(/%winnings/, (teamMap[teamName].winnings < 0) ? ('-$' + (-teamMap[teamName].winnings).toFixed(2)) : ('$' + teamMap[teamName].winnings.toFixed(2))));
         }
         $('#betStatsDetails').append(table);
+        // FIXME - tablesorter not working:
         $('#betStatsTable').tablesorter();
       }
     });
