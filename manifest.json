@@ -18,6 +18,7 @@
     ],
 
     "permissions": [
+        "storage",
         "http://*.dota2lounge.com/*",
         "http://steamcommunity.com/market/*"
     ]
