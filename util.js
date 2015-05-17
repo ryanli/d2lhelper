@@ -66,7 +66,11 @@ var util = {};
 
 
   var getItemName = function(item) {
-    return $($($($(item).parent()).children('.name')[0]).children('b')[0]).text().trim();
+    // Don't use the .smallimg's alt attr since it doesn't have quality prefix.
+    // However the name in <b> might have double `Genunine' prefix which we need to fix.
+    var name = $($($($(item).parent()).children('.name')[0]).children('b')[0]).text();
+    name = name.replace(/^Genuine Genuine/, 'Genuine');
+    return name.trim();
   };
 
 

@@ -1,6 +1,5 @@
 (function() {
   var attachPrice = function(item) {
-    // don't use the .smallimg's alt attr since it doesn't have quality prefix
     var itemName = util.getItemName(item);
     util.getItemPrice(itemName, function(price) {
       if (price != null) {
