@@ -3,7 +3,7 @@
 
     "name": "Dota 2 Lounge Helper",
     "description": "Helper extension for Dota 2 Lounge.",
-    "version": "0.5.1",
+    "version": "0.5.2",
 
     "content_scripts": [
         {
