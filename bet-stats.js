@@ -40,7 +40,7 @@
         var itemName = util.getItemName(item);
         util.getItemPrice(itemName, function(price) {
           if (price != null) {
-            price = parseFloat(price.replace(/^&#36;/, ''));
+            price = parseFloat(price.replace(/^\$/, ''));
             $('#betStats progress').attr('value', ++count);
             if (count == $('#betStats progress').attr('max')) {
               $('#betStats progress').hide();
